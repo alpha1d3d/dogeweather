@@ -1,5 +1,12 @@
 $(document).ready(function() {
-	getLocation(); 
+	var lat = GetURLParameter('lat');
+	var lon = GetURLParameter('lon');
+
+	if (lat && lon) {
+		showPosition({coords: {latitude: lat, longitude: lon}});
+	} else {
+		getLocation();
+	}
 });
 
 function getWeather(link) {
@@ -62,3 +69,13 @@ function showPosition(position) {
     getWeather(url);
     $("#browser_geo").text("wow, located!").css("cursor", "auto").css("color", "#FF5CFF");
 }
+function GetURLParameter(sParam) {
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++) {
+    var sParameterName = sURLVariables[i].split('=');
+    if (sParameterName[0] == sParam) {
+      return sParameterName[1];
+    }
+  }
+}​
